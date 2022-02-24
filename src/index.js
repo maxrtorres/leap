@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {StyleSheet, StatusBar, AppState, Alert} from 'react-native';
+import {StyleSheet, AppState, Alert} from 'react-native';
 import {GameEngine} from 'react-native-game-engine';
 import {Physics} from './game/systems/physics';
 import {Jump} from './game/systems/jump';
@@ -66,9 +66,7 @@ class App extends PureComponent {
                 },
               ]);
           }
-        }}>
-        <StatusBar hidden={true} />
-      </GameEngine>
+        }}></GameEngine>
     );
   }
 }

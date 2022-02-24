@@ -12,7 +12,7 @@ const gameOverSound = new Sound('game_over.mp3', Sound.MAIN_BUNDLE, error => {
 export const Obstacle = (entities, {dispatch}) => {
   let obstacle = entities.obstacle.body;
   Matter.Body.setVelocity(obstacle, {
-    x: -5,
+    x: -width / 75,
     y: 0,
   });
   if (obstacle.position.x < -0.2 * width) {

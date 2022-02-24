@@ -1,6 +1,7 @@
 import {getDimensions} from './game/utils/Utils';
 import Box from './game/components/box';
 import Matter from 'matter-js';
+import {StatusBar} from 'react-native';
 
 export const Entities = () => {
   const {width, height} = getDimensions();
@@ -16,7 +17,7 @@ export const Entities = () => {
   );
   const ceiling = Matter.Bodies.rectangle(
     width / 2,
-    boxSize,
+    -boxSize / 2,
     width * 2,
     boxSize,
     {
