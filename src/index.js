@@ -5,6 +5,7 @@ import {Physics} from './game/systems/physics';
 import {Jump} from './game/systems/jump';
 import {Obstacle} from './game/systems/obstacle';
 import {Entities} from './entities';
+import {gameOver} from './game/utils/Utils';
 
 class App extends PureComponent {
   constructor() {
@@ -14,9 +15,16 @@ class App extends PureComponent {
   render() {
     return (
       <GameEngine
+        ref={'gameEngine'}
         style={styles.container}
         systems={[Physics, Jump, Obstacle]}
-        entities={Entities()}>
+        entities={Entities()}
+        onEvent={e => {
+          switch (e) {
+            case 'game-over':
+              gameOver(this.refs.gameEngine);
+          }
+        }}>
         <StatusBar hidden={true} />
       </GameEngine>
     );
