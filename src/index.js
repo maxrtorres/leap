@@ -1,81 +1,28 @@
-import React, {PureComponent} from 'react';
-import {StyleSheet, AppState, Alert} from 'react-native';
-import {GameEngine} from 'react-native-game-engine';
-import {Physics} from './game/systems/physics';
-import {Jump} from './game/systems/jump';
-import {Obstacle} from './game/systems/obstacle';
-import {Entities} from './entities';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import StartScreen from './start_screen';
+import GameScreen from './game_screen';
 
-class App extends PureComponent {
-  constructor() {
-    super();
-  }
+const Stack = createNativeStackNavigator();
 
-  state = {
-    appState: AppState.currentState,
-    isRunning: true,
-  };
-
-  componentDidMount() {
-    this.appStateSubscription = AppState.addEventListener(
-      'change',
-      nextAppState => {
-        if (
-          this.state.isRunning &&
-          this.state.appState.match(/inactive|background/) &&
-          nextAppState === 'active'
-        ) {
-          this.refs.gameEngine.start();
-        } else if (
-          this.state.isRunning &&
-          this.state.appState.match(/inactive|active/) &&
-          nextAppState === 'background'
-        ) {
-          this.refs.gameEngine.stop();
-        }
-        this.setState({appState: nextAppState});
-      },
-    );
-  }
-
-  componentWillUnmount() {
-    this.appStateSubscription.remove();
-  }
-
-  render() {
-    return (
-      <GameEngine
-        ref={'gameEngine'}
-        style={styles.container}
-        systems={[Physics, Jump, Obstacle]}
-        entities={Entities()}
-        onEvent={e => {
-          switch (e) {
-            case 'game-over':
-              this.setState({isRunning: false});
-              this.refs.gameEngine.stop();
-              Alert.alert('Game over!', 'Play again?', [
-                {
-                  text: 'Play',
-                  onPress: () => {
-                    this.refs.gameEngine.swap(Entities());
-                    this.setState({isRunning: true});
-                    this.refs.gameEngine.start();
-                  },
-                  style: 'default',
-                },
-              ]);
-          }
-        }}></GameEngine>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-  },
-});
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="StartScreen">
+        <Stack.Screen
+          name="StartScreen"
+          component={StartScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="GameScreen"
+          component={GameScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;
