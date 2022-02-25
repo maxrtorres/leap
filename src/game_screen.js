@@ -5,6 +5,20 @@ import {Physics} from './game/systems/physics';
 import {Jump} from './game/systems/jump';
 import {Obstacle} from './game/systems/obstacle';
 import {Entities} from './entities';
+import Sound from 'react-native-sound';
+
+export const gameMusic = new Sound(
+  'percussion.mp3',
+  Sound.MAIN_BUNDLE,
+  error => {
+    if (error) {
+      console.log('game music', error);
+    } else {
+      gameMusic.setNumberOfLoops(-1);
+      gameMusic.setVolume(0.5);
+    }
+  },
+);
 
 const GameScreen = ({navigation}) => {
   const gameEngine = useRef(null);
@@ -18,12 +32,14 @@ const GameScreen = ({navigation}) => {
       nextAppState === 'background'
     ) {
       gameEngine.current.stop();
+      gameMusic.stop();
     } else if (
       running &&
       appState.current.match('background') &&
       nextAppState === 'active'
     ) {
       gameEngine.current.start();
+      gameMusic.play();
     }
     appState.current = nextAppState;
   };
@@ -38,6 +54,13 @@ const GameScreen = ({navigation}) => {
     };
   });
 
+  useEffect(() => {
+    gameMusic.play();
+    return () => {
+      gameMusic.stop();
+    };
+  }, []);
+
   return (
     <GameEngine
       ref={gameEngine}
@@ -49,6 +72,7 @@ const GameScreen = ({navigation}) => {
           case 'game-over':
             setRunning(false);
             gameEngine.current.stop();
+            gameMusic.stop();
             Alert.alert('Game over!', 'Play again?', [
               {
                 text: 'Play',
@@ -56,16 +80,14 @@ const GameScreen = ({navigation}) => {
                   setRunning(true);
                   gameEngine.current.swap(Entities());
                   gameEngine.current.start();
+                  gameMusic.play();
                 },
                 style: 'default',
               },
               {
                 text: 'Exit',
                 onPress: () => {
-                  navigation.reset({
-                    index: 0,
-                    routes: [{name: 'StartScreen'}],
-                  });
+                  navigation.replace('StartScreen');
                 },
                 style: 'destructive',
               },

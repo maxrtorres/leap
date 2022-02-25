@@ -1,18 +1,57 @@
-import React from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {View, Text, TouchableWithoutFeedback, AppState} from 'react-native';
 import {getDimensions} from './game/utils/Utils';
+import Sound from 'react-native-sound';
 
 const {width, height} = getDimensions();
+export const startMusic = new Sound(
+  'fallen_leaves.mp3',
+  Sound.MAIN_BUNDLE,
+  error => {
+    if (error) {
+      console.log('start music', error);
+    } else {
+      startMusic.setNumberOfLoops(-1);
+      startMusic.setVolume(0.5);
+      startMusic.play();
+    }
+  },
+);
 
 const StartScreen = ({navigation}) => {
+  const appState = useRef(AppState.currentState);
+
+  _handleAppStateChange = nextAppState => {
+    if (appState.current.match('active') && nextAppState === 'background') {
+      startMusic.stop();
+    } else if (
+      appState.current.match('background') &&
+      nextAppState === 'active'
+    ) {
+      startMusic.play();
+    }
+    appState.current = nextAppState;
+  };
+
+  useEffect(() => {
+    let subscription = AppState.addEventListener(
+      'change',
+      _handleAppStateChange,
+    );
+    return () => {
+      subscription.remove();
+    };
+  });
+
+  useEffect(() => {
+    startMusic.play();
+    return () => {
+      startMusic.stop();
+    };
+  }, []);
+
   return (
-    <TouchableWithoutFeedback
-      onPress={() =>
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'GameScreen'}],
-        })
-      }>
+    <TouchableWithoutFeedback onPress={() => navigation.replace('GameScreen')}>
       <View
         style={{
           justifyContent: 'center',
