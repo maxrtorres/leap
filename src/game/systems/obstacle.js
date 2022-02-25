@@ -3,7 +3,7 @@ import {getDimensions} from '../utils/Utils';
 import Sound from 'react-native-sound';
 
 const {width, height} = getDimensions();
-const gameOverSound = new Sound('game_over.mp3', Sound.MAIN_BUNDLE, error => {
+const gameOverSound = new Sound('game_over.wav', Sound.MAIN_BUNDLE, error => {
   if (error) {
     console.log('game over sound', error);
   }

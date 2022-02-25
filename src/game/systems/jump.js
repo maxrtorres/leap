@@ -3,7 +3,7 @@ import Sound from 'react-native-sound';
 import {getDimensions} from '../utils/Utils';
 
 const {width, height} = getDimensions();
-const jumpSound = new Sound('jump.mp3', Sound.MAIN_BUNDLE, error => {
+const jumpSound = new Sound('jump.wav', Sound.MAIN_BUNDLE, error => {
   if (error) {
     console.log('jump sound', error);
   }
