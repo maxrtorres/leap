@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   AppState,
   StyleSheet,
+  Animated,
 } from 'react-native';
 import {getDimensions} from './game/utils/Utils';
 import Sound from 'react-native-sound';
@@ -28,6 +29,20 @@ export const startMusic = new Sound(
 
 const StartScreen = ({navigation}) => {
   const appState = useRef(AppState.currentState);
+  const bounceAnim = useRef(new Animated.Value(0)).current;
+
+  const bounce = Animated.sequence([
+    Animated.timing(bounceAnim, {
+      toValue: -0.01 * height,
+      duration: 500,
+      useNativeDriver: true,
+    }),
+    Animated.timing(bounceAnim, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }),
+  ]);
 
   _handleAppStateChange = nextAppState => {
     if (appState.current.match('active') && nextAppState === 'background') {
@@ -53,6 +68,7 @@ const StartScreen = ({navigation}) => {
 
   useEffect(() => {
     startMusic.play();
+    Animated.loop(bounce, {iterations: -1}).start();
     return () => {
       startMusic.stop();
     };
@@ -62,9 +78,11 @@ const StartScreen = ({navigation}) => {
     <TouchableWithoutFeedback onPress={() => navigation.replace('GameScreen')}>
       <View style={styles.container}>
         <Text style={styles.title}>Leap</Text>
-        <Image source={frog} style={styles.image}></Image>
         <Text style={styles.highscore}>High Score: </Text>
-        <Text style={styles.tap}>Tap to play!</Text>
+        <Animated.View style={{transform: [{translateY: bounceAnim}]}}>
+          <Image source={frog} style={styles.image}></Image>
+          <Text style={styles.tap}>Tap to play!</Text>
+        </Animated.View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -75,29 +93,32 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'green',
   },
   title: {
     textAlign: 'center',
     fontSize: 0.2 * width,
     color: 'white',
+    fontFamily: 'sans-serif-condensed',
+    marginBottom: 0.05 * height,
+  },
+  highscore: {
+    textAlign: 'center',
+    fontSize: 0.05 * width,
+    color: 'white',
+    fontFamily: 'sans-serif-condensed',
   },
   image: {
     width: width / 2,
     height: width / 2,
     resizeMode: 'contain',
-    marginBottom: height * 0.03,
-  },
-  highscore: {
-    textAlign: 'center',
-    fontSize: 0.03 * width,
-    color: 'white',
-    marginBottom: 0.1 * height,
+    marginBottom: height * 0.05,
   },
   tap: {
     textAlign: 'center',
     fontSize: 0.05 * width,
     color: 'white',
+    fontFamily: 'sans-serif-condensed',
   },
 });
 
