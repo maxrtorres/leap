@@ -1,7 +1,7 @@
 import {getDimensions} from './game/utils/Utils';
 import Box from './game/components/box';
 import Matter from 'matter-js';
-import {StatusBar} from 'react-native';
+import frog from './assets/frog.png';
 
 export const Entities = () => {
   const {width, height} = getDimensions();
@@ -53,8 +53,9 @@ export const Entities = () => {
     playerBox: {
       body: playerBox,
       size: [boxSize, boxSize],
-      color: 'red',
+      color: 'transparent',
       renderer: Box,
+      image: frog,
     },
     ceiling: {
       body: ceiling,
