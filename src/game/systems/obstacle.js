@@ -3,9 +3,11 @@ import {getDimensions, genRandom} from '../utils/Utils';
 import Sound from 'react-native-sound';
 
 const {width, height} = getDimensions();
-const gameOverSound = new Sound('game_over.wav', Sound.MAIN_BUNDLE, error => {
+const loseSound = new Sound('lose.wav', Sound.MAIN_BUNDLE, error => {
   if (error) {
-    console.log('game over sound', error);
+    console.log('lose sound', error);
+  } else {
+    loseSound.setVolume(0.1);
   }
 });
 
@@ -25,7 +27,7 @@ export const Obstacle = (entities, {dispatch}) => {
   let playerBox = entities.playerBox.body;
   let collision = Matter.Collision.collides(playerBox, obstacle);
   if (collision != null) {
-    gameOverSound.play();
+    loseSound.play();
     dispatch('game-over');
   }
   return entities;

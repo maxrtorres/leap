@@ -69,7 +69,7 @@ export const Entities = () => {
     floor: {
       body: floor,
       size: [width * 5, height * 0.5],
-      color: 'green',
+      color: '#CFCAA4',
       renderer: Box,
     },
     obstacle: {

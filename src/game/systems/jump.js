@@ -6,6 +6,8 @@ const {width, height} = getDimensions();
 const jumpSound = new Sound('jump.wav', Sound.MAIN_BUNDLE, error => {
   if (error) {
     console.log('jump sound', error);
+  } else {
+    jumpSound.setVolume(0.1);
   }
 });
 

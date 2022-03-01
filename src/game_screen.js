@@ -7,18 +7,14 @@ import {Obstacle} from './game/systems/obstacle';
 import {Entities} from './entities';
 import Sound from 'react-native-sound';
 
-export const gameMusic = new Sound(
-  'percussion.mp3',
-  Sound.MAIN_BUNDLE,
-  error => {
-    if (error) {
-      console.log('game music', error);
-    } else {
-      gameMusic.setNumberOfLoops(-1);
-      gameMusic.setVolume(0.5);
-    }
-  },
-);
+const gameMusic = new Sound('game.wav', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('game music', error);
+  } else {
+    gameMusic.setNumberOfLoops(-1);
+    gameMusic.setVolume(0.3);
+  }
+});
 
 const GameScreen = ({navigation}) => {
   const gameEngine = useRef(null);
@@ -100,7 +96,7 @@ const GameScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#27183F',
   },
 });
 

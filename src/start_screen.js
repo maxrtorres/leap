@@ -13,19 +13,15 @@ import Sound from 'react-native-sound';
 import frog from './assets/frog.png';
 
 const {width, height} = getDimensions();
-export const startMusic = new Sound(
-  'fallen_leaves.mp3',
-  Sound.MAIN_BUNDLE,
-  error => {
-    if (error) {
-      console.log('start music', error);
-    } else {
-      startMusic.setNumberOfLoops(-1);
-      startMusic.setVolume(0.5);
-      startMusic.play();
-    }
-  },
-);
+const startMusic = new Sound('start.wav', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('start music', error);
+  } else {
+    startMusic.setNumberOfLoops(-1);
+    startMusic.setVolume(0.3);
+    startMusic.play();
+  }
+});
 
 const StartScreen = ({navigation}) => {
   const appState = useRef(AppState.currentState);
@@ -93,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'green',
+    backgroundColor: '#27183F',
   },
   title: {
     textAlign: 'center',
