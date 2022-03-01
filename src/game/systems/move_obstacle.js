@@ -1,10 +1,9 @@
 import Matter from 'matter-js';
 import {getDimensions, genRandom} from '../utils/Utils';
-import {loseSound} from '../values/sounds';
 
 const {width, height} = getDimensions();
 
-export const Obstacle = (entities, {dispatch}) => {
+export const MoveObstacle = entities => {
   let obstacle = entities.obstacle.body;
   Matter.Body.setVelocity(obstacle, {
     x: -width * 0.02,
@@ -16,12 +15,6 @@ export const Obstacle = (entities, {dispatch}) => {
       x: width * 1.2,
       y: newY,
     });
-  }
-  let playerBox = entities.playerBox.body;
-  let collision = Matter.Collision.collides(playerBox, obstacle);
-  if (collision != null) {
-    loseSound.play();
-    dispatch('game-over');
   }
   return entities;
 };

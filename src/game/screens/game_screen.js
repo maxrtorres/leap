@@ -1,9 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, Alert, AppState} from 'react-native';
 import {GameEngine} from 'react-native-game-engine';
-import {Physics} from '../systems/physics';
-import {Jump} from '../systems/jump';
-import {Obstacle} from '../systems/obstacle';
+import {Systems} from '../systems/systems';
 import {Entities} from '../entities/entities';
 import {Colors} from '../values/colors';
 import {gameMusic} from '../values/sounds';
@@ -53,7 +51,7 @@ const GameScreen = ({navigation}) => {
     <GameEngine
       ref={gameEngine}
       style={styles.container}
-      systems={[Physics, Jump, Obstacle]}
+      systems={Systems()}
       entities={Entities()}
       onEvent={e => {
         switch (e) {
