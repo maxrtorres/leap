@@ -96,7 +96,7 @@ const GameScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#27183F',
+    backgroundColor: '#070B34',
   },
 });
 

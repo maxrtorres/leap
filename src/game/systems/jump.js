@@ -15,7 +15,7 @@ export const Jump = (entities, {touches}) => {
   let playerBox = entities.playerBox.body;
   Body.applyForce(playerBox, playerBox.position, {
     x: 0,
-    y: height * 0.000005,
+    y: height * 0.000003,
   });
   touches
     .filter(t => t.type === 'press')
@@ -23,7 +23,7 @@ export const Jump = (entities, {touches}) => {
       {
         Matter.Body.setVelocity(playerBox, {
           x: 0,
-          y: -height * 0.03,
+          y: -height * 0.025,
         });
         jumpSound.play();
       }

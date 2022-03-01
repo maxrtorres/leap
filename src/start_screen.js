@@ -77,8 +77,8 @@ const StartScreen = ({navigation}) => {
         <Text style={styles.highscore}>High Score: </Text>
         <Animated.View style={{transform: [{translateY: bounceAnim}]}}>
           <Image source={frog} style={styles.image}></Image>
-          <Text style={styles.tap}>Tap to play!</Text>
         </Animated.View>
+        <Text style={styles.tap}>Tap to play!</Text>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: '#27183F',
+    backgroundColor: '#070B34',
   },
   title: {
     textAlign: 'center',

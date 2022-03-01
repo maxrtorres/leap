@@ -8,7 +8,7 @@ export const Entities = () => {
   const boxSize = Math.trunc(height * 0.05);
   const playerBox = Matter.Bodies.rectangle(
     width * 0.25,
-    height * 0.75,
+    height * 0.3,
     boxSize,
     boxSize,
     {
@@ -28,7 +28,7 @@ export const Entities = () => {
     width * 0.5,
     height,
     width * 5,
-    height * 0.5,
+    height * 0.25,
     {
       isStatic: true,
     },
@@ -37,7 +37,7 @@ export const Entities = () => {
     width * 1.2,
     height * 0.75,
     boxSize,
-    height * 0.25,
+    boxSize,
     {
       friction: 0,
     },
@@ -68,14 +68,14 @@ export const Entities = () => {
     },
     floor: {
       body: floor,
-      size: [width * 5, height * 0.5],
-      color: '#CFCAA4',
+      size: [width * 5, height * 0.25],
+      color: '#e77d11',
       renderer: Box,
     },
     obstacle: {
       body: obstacle,
-      size: [boxSize, height * 0.25],
-      color: '#964B00',
+      size: [boxSize, boxSize],
+      color: '#b7410e',
       renderer: Box,
     },
   };
