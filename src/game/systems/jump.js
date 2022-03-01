@@ -1,15 +1,8 @@
 import Matter, {Body} from 'matter-js';
-import Sound from 'react-native-sound';
 import {getDimensions} from '../utils/Utils';
+import {jumpSound} from '../values/sounds';
 
 const {width, height} = getDimensions();
-const jumpSound = new Sound('jump.wav', Sound.MAIN_BUNDLE, error => {
-  if (error) {
-    console.log('jump sound', error);
-  } else {
-    jumpSound.setVolume(0.1);
-  }
-});
 
 export const Jump = (entities, {touches}) => {
   let playerBox = entities.playerBox.body;

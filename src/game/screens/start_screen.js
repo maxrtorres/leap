@@ -8,20 +8,12 @@ import {
   StyleSheet,
   Animated,
 } from 'react-native';
-import {getDimensions} from './game/utils/Utils';
-import Sound from 'react-native-sound';
-import frog from './assets/frog.png';
+import {getDimensions} from '../utils/Utils';
+import frog from '../../assets/frog.png';
+import {Colors} from '../values/colors';
+import {startMusic} from '../values/sounds';
 
 const {width, height} = getDimensions();
-const startMusic = new Sound('start.wav', Sound.MAIN_BUNDLE, error => {
-  if (error) {
-    console.log('start music', error);
-  } else {
-    startMusic.setNumberOfLoops(-1);
-    startMusic.setVolume(0.3);
-    startMusic.play();
-  }
-});
 
 const StartScreen = ({navigation}) => {
   const appState = useRef(AppState.currentState);
@@ -89,19 +81,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: '#070B34',
+    backgroundColor: Colors.backgroundColor,
   },
   title: {
     textAlign: 'center',
     fontSize: 0.2 * width,
-    color: 'white',
+    color: Colors.textColor,
     fontFamily: 'sans-serif-condensed',
     marginBottom: 0.05 * height,
   },
   highscore: {
     textAlign: 'center',
     fontSize: 0.05 * width,
-    color: 'white',
+    color: Colors.textColor,
     fontFamily: 'sans-serif-condensed',
   },
   image: {
@@ -113,7 +105,7 @@ const styles = StyleSheet.create({
   tap: {
     textAlign: 'center',
     fontSize: 0.05 * width,
-    color: 'white',
+    color: Colors.textColor,
     fontFamily: 'sans-serif-condensed',
   },
 });

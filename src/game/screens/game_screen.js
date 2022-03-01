@@ -1,20 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, Alert, AppState} from 'react-native';
 import {GameEngine} from 'react-native-game-engine';
-import {Physics} from './game/systems/physics';
-import {Jump} from './game/systems/jump';
-import {Obstacle} from './game/systems/obstacle';
-import {Entities} from './entities';
-import Sound from 'react-native-sound';
-
-const gameMusic = new Sound('game.wav', Sound.MAIN_BUNDLE, error => {
-  if (error) {
-    console.log('game music', error);
-  } else {
-    gameMusic.setNumberOfLoops(-1);
-    gameMusic.setVolume(0.3);
-  }
-});
+import {Physics} from '../systems/physics';
+import {Jump} from '../systems/jump';
+import {Obstacle} from '../systems/obstacle';
+import {Entities} from '../entities/entities';
+import {Colors} from '../values/colors';
+import {gameMusic} from '../values/sounds';
 
 const GameScreen = ({navigation}) => {
   const gameEngine = useRef(null);
@@ -96,7 +88,7 @@ const GameScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#070B34',
+    backgroundColor: Colors.backgroundColor,
   },
 });
 

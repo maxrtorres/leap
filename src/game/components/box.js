@@ -16,7 +16,7 @@ export default function Box(props) {
         top: y,
         width: width,
         height: height,
-        backgroundColor: props.color || 'black',
+        backgroundColor: props.color || 'transparent',
       }}>
       {image != null && <Image source={image} style={styles.image} />}
     </View>

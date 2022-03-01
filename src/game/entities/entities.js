@@ -1,7 +1,8 @@
-import {getDimensions} from './game/utils/Utils';
-import Box from './game/components/box';
+import {getDimensions} from '../utils/Utils';
+import Box from '../components/box';
 import Matter from 'matter-js';
-import frog from './assets/frog.png';
+import frog from '../../assets/frog.png';
+import {Colors} from '../values/colors';
 
 export const Entities = () => {
   const {width, height} = getDimensions();
@@ -56,26 +57,26 @@ export const Entities = () => {
     playerBox: {
       body: playerBox,
       size: [boxSize, boxSize],
-      color: 'transparent',
+      color: Colors.playerColor,
       renderer: Box,
       image: frog,
     },
     ceiling: {
       body: ceiling,
       size: [width * 5, boxSize],
-      color: 'transparent',
+      color: Colors.ceilingColor,
       renderer: Box,
     },
     floor: {
       body: floor,
       size: [width * 5, height * 0.25],
-      color: '#e77d11',
+      color: Colors.floorColor,
       renderer: Box,
     },
     obstacle: {
       body: obstacle,
       size: [boxSize, boxSize],
-      color: '#b7410e',
+      color: Colors.obstacleColor,
       renderer: Box,
     },
   };
