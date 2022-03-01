@@ -1,4 +1,4 @@
-import {getDimensions} from '../utils/Utils';
+import {getDimensions, genRandom} from '../utils/Utils';
 import Box from '../components/box';
 import Matter from 'matter-js';
 import frog from '../../assets/frog.png';
@@ -34,9 +34,18 @@ export const Entities = () => {
       isStatic: true,
     },
   );
-  const obstacle = Matter.Bodies.rectangle(
+  const obstacle1 = Matter.Bodies.rectangle(
     width * 1.2,
-    height * 0.75,
+    genRandom(0, height * 0.75),
+    boxSize,
+    boxSize,
+    {
+      friction: 0,
+    },
+  );
+  const obstacle2 = Matter.Bodies.rectangle(
+    width * 1.7,
+    genRandom(0, height * 0.75),
     boxSize,
     boxSize,
     {
@@ -50,7 +59,7 @@ export const Entities = () => {
   });
   const world = engine.world;
   const physics = {engine: engine, world, world};
-  Matter.World.add(world, [playerBox, ceiling, floor, obstacle]);
+  Matter.World.add(world, [playerBox, ceiling, floor, obstacle1, obstacle2]);
 
   return {
     physics: physics,
@@ -73,8 +82,14 @@ export const Entities = () => {
       color: Colors.floorColor,
       renderer: Box,
     },
-    obstacle: {
-      body: obstacle,
+    obstacle1: {
+      body: obstacle1,
+      size: [boxSize, boxSize],
+      color: Colors.obstacleColor,
+      renderer: Box,
+    },
+    obstacle2: {
+      body: obstacle2,
       size: [boxSize, boxSize],
       color: Colors.obstacleColor,
       renderer: Box,

@@ -2,12 +2,21 @@ import Matter from 'matter-js';
 import {loseSound} from '../values/sounds';
 
 export const GameOver = (entities, {dispatch}) => {
-  let obstacle = entities.obstacle.body;
   let playerBox = entities.playerBox.body;
-  let collision = Matter.Collision.collides(playerBox, obstacle);
-  if (collision != null) {
-    loseSound.play();
-    dispatch('game-over');
-  }
+  let obstacle1 = entities.obstacle1.body;
+  let obstacle2 = entities.obstacle2.body;
+  let ceiling = entities.ceiling.body;
+  let floor = entities.floor.body;
+  let objects = [obstacle1, obstacle2, ceiling, floor];
+
+  objects.forEach(function (object) {
+    let collision = Matter.Collision.collides(playerBox, object);
+    if (collision != null) {
+      loseSound.play();
+      dispatch('game-over');
+      return entities;
+    }
+  });
+
   return entities;
 };
