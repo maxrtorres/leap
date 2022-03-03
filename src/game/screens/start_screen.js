@@ -9,7 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import {getDimensions} from '../utils/Utils';
-import frog from '../../assets/frog.png';
+import playerImage from '../../assets/player.png';
 import {Colors} from '../values/colors';
 import {startMusic} from '../values/sounds';
 
@@ -68,7 +68,7 @@ const StartScreen = ({navigation}) => {
         <Text style={styles.title}>Leap</Text>
         <Text style={styles.highscore}>High Score: </Text>
         <Animated.View style={{transform: [{translateY: bounceAnim}]}}>
-          <Image source={frog} style={styles.image}></Image>
+          <Image source={playerImage} style={styles.image}></Image>
         </Animated.View>
         <Text style={styles.tap}>Tap to play!</Text>
       </View>
