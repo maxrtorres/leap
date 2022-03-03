@@ -1,5 +1,4 @@
 import Matter from 'matter-js';
-import {loseSound} from '../values/sounds';
 
 export const GameOver = (entities, {dispatch}) => {
   let playerBox = entities.playerBox.body;
@@ -12,7 +11,6 @@ export const GameOver = (entities, {dispatch}) => {
   objects.forEach(function (object) {
     let collision = Matter.Collision.collides(playerBox, object);
     if (collision != null) {
-      loseSound.play();
       dispatch('game-over');
       return entities;
     }

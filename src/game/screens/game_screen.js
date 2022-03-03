@@ -5,6 +5,7 @@ import {Systems} from '../systems/systems';
 import {Entities} from '../entities/entities';
 import {Colors} from '../values/colors';
 import {gameMusic} from '../values/sounds';
+import {loseSound} from '../values/sounds';
 
 const GameScreen = ({navigation}) => {
   const gameEngine = useRef(null);
@@ -26,6 +27,8 @@ const GameScreen = ({navigation}) => {
     ) {
       gameEngine.current.start();
       gameMusic.play();
+    } else {
+      loseSound.stop();
     }
     appState.current = nextAppState;
   };
@@ -44,6 +47,7 @@ const GameScreen = ({navigation}) => {
     gameMusic.play();
     return () => {
       gameMusic.stop();
+      loseSound.stop();
     };
   }, []);
 
@@ -59,6 +63,7 @@ const GameScreen = ({navigation}) => {
             setRunning(false);
             gameEngine.current.stop();
             gameMusic.stop();
+            loseSound.play();
             Alert.alert('Game over!', 'Play again?', [
               {
                 text: 'Play',
@@ -66,6 +71,7 @@ const GameScreen = ({navigation}) => {
                   setRunning(true);
                   gameEngine.current.swap(Entities());
                   gameEngine.current.start();
+                  loseSound.stop();
                   gameMusic.play();
                 },
                 style: 'default',
