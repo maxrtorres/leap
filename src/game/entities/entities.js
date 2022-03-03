@@ -28,7 +28,7 @@ export const Entities = () => {
   );
   const floor = Matter.Bodies.rectangle(
     width * 0.5,
-    height * 0.95,
+    height,
     width * 5,
     height * 0.3,
     {
