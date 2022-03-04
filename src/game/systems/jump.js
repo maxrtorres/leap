@@ -5,14 +5,14 @@ import {jumpSound} from '../values/sounds';
 const {width, height} = getDimensions();
 
 export const Jump = (entities, {touches}) => {
-  let playerBox = entities.playerBox.body;
+  let player = entities.player.body;
   touches
     .filter(t => t.type === 'press')
     .forEach(t => {
       {
-        Matter.Body.setVelocity(playerBox, {
+        Matter.Body.setVelocity(player, {
           x: 0,
-          y: -height * 0.027,
+          y: -25,
         });
         jumpSound.play();
       }

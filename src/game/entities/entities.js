@@ -62,7 +62,7 @@ export const Entities = () => {
 
   return {
     physics: physics,
-    playerBox: {
+    player: {
       body: player,
       size: [playerHeight, playerHeight],
       color: Colors.playerColor,
