@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet, Alert, AppState} from 'react-native';
+import {StyleSheet, Alert, AppState, ImageBackground} from 'react-native';
 import {GameEngine} from 'react-native-game-engine';
 import {Systems} from '../systems/systems';
 import {Entities} from '../entities/entities';
 import {Colors} from '../values/colors';
 import {gameMusic} from '../values/sounds';
 import {loseSound} from '../values/sounds';
+import backgroundImage from '../../assets/background.png';
 
 const GameScreen = ({navigation}) => {
   const gameEngine = useRef(null);
@@ -52,47 +53,56 @@ const GameScreen = ({navigation}) => {
   }, []);
 
   return (
-    <GameEngine
-      ref={gameEngine}
-      style={styles.container}
-      systems={Systems()}
-      entities={Entities()}
-      onEvent={e => {
-        switch (e) {
-          case 'game-over':
-            setRunning(false);
-            gameEngine.current.stop();
-            gameMusic.stop();
-            loseSound.play();
-            Alert.alert('Game over!', 'Play again?', [
-              {
-                text: 'Play',
-                onPress: () => {
-                  setRunning(true);
-                  gameEngine.current.swap(Entities());
-                  gameEngine.current.start();
-                  loseSound.stop();
-                  gameMusic.play();
+    <ImageBackground
+      source={backgroundImage}
+      resizeMode="cover"
+      style={styles.background}>
+      <GameEngine
+        ref={gameEngine}
+        style={styles.container}
+        systems={Systems()}
+        entities={Entities()}
+        onEvent={e => {
+          switch (e) {
+            case 'game-over':
+              setRunning(false);
+              gameEngine.current.stop();
+              gameMusic.stop();
+              loseSound.play();
+              Alert.alert('Game over!', 'Play again?', [
+                {
+                  text: 'Play',
+                  onPress: () => {
+                    setRunning(true);
+                    gameEngine.current.swap(Entities());
+                    gameEngine.current.start();
+                    loseSound.stop();
+                    gameMusic.play();
+                  },
+                  style: 'default',
                 },
-                style: 'default',
-              },
-              {
-                text: 'Exit',
-                onPress: () => {
-                  navigation.replace('StartScreen');
+                {
+                  text: 'Exit',
+                  onPress: () => {
+                    navigation.replace('StartScreen');
+                  },
+                  style: 'destructive',
                 },
-                style: 'destructive',
-              },
-            ]);
-        }
-      }}></GameEngine>
+              ]);
+          }
+        }}
+      />
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
     backgroundColor: Colors.backgroundColor,
+  },
+  container: {
+    flex: 1,
   },
 });
 

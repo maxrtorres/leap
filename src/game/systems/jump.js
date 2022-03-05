@@ -1,8 +1,5 @@
 import Matter from 'matter-js';
-import {getDimensions} from '../utils/Utils';
 import {jumpSound} from '../values/sounds';
-
-const {width, height} = getDimensions();
 
 export const Jump = (entities, {touches}) => {
   let player = entities.player.body;

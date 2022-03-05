@@ -7,11 +7,13 @@ import {
   AppState,
   StyleSheet,
   Animated,
+  ImageBackground,
 } from 'react-native';
 import {getDimensions} from '../utils/Utils';
 import playerImage from '../../assets/player.png';
 import {Colors} from '../values/colors';
 import {startMusic} from '../values/sounds';
+import backgroundImage from '../../assets/background.png';
 
 const {width, height} = getDimensions();
 
@@ -63,25 +65,34 @@ const StartScreen = ({navigation}) => {
   }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.replace('GameScreen')}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Leap</Text>
-        <Text style={styles.highscore}>High Score: </Text>
-        <Animated.View style={{transform: [{translateY: bounceAnim}]}}>
-          <Image source={playerImage} style={styles.image}></Image>
-        </Animated.View>
-        <Text style={styles.tap}>Tap to play!</Text>
-      </View>
-    </TouchableWithoutFeedback>
+    <ImageBackground
+      source={backgroundImage}
+      resizeMode="cover"
+      style={styles.background}>
+      <TouchableWithoutFeedback
+        onPress={() => navigation.replace('GameScreen')}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Leap</Text>
+          <Text style={styles.highscore}>High Score: </Text>
+          <Animated.View style={{transform: [{translateY: bounceAnim}]}}>
+            <Image source={playerImage} style={styles.image}></Image>
+          </Animated.View>
+          <Text style={styles.tap}>Tap to play!</Text>
+        </View>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: Colors.backgroundColor,
+  },
   container: {
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
   },
   title: {
     textAlign: 'center',
@@ -95,6 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 0.05 * width,
     color: Colors.textColor,
     fontFamily: 'Pixel',
+    marginBottom: height * 0.05,
   },
   image: {
     width: width / 2,

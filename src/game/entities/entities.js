@@ -30,7 +30,7 @@ export const Entities = () => {
     width * 0.5,
     height,
     width * 5,
-    height * 0.3,
+    height * 0.35,
     {
       isStatic: true,
     },
@@ -77,7 +77,7 @@ export const Entities = () => {
     },
     floor: {
       body: floor,
-      size: [width * 5, height * 0.3],
+      size: [width * 5, height * 0.35],
       color: Colors.floorColor,
       renderer: Box,
       image: floorImage,
