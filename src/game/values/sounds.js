@@ -15,7 +15,7 @@ export const gameMusic = new Sound('game.wav', Sound.MAIN_BUNDLE, error => {
     console.log('game music', error);
   } else {
     gameMusic.setNumberOfLoops(-1);
-    gameMusic.setVolume(0.3);
+    gameMusic.setVolume(0.2);
   }
 });
 
