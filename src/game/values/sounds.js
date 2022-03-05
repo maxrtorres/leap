@@ -1,6 +1,6 @@
 import Sound from 'react-native-sound';
 
-export const startMusic = new Sound('start.wav', Sound.MAIN_BUNDLE, error => {
+export const startMusic = new Sound('start.ogg', Sound.MAIN_BUNDLE, error => {
   if (error) {
     console.log('start music', error);
   } else {
