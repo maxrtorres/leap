@@ -5,7 +5,7 @@ export const startMusic = new Sound('start.ogg', Sound.MAIN_BUNDLE, error => {
     console.log('start music', error);
   } else {
     startMusic.setNumberOfLoops(-1);
-    startMusic.setVolume(0.3);
+    startMusic.setVolume(0.7);
     startMusic.play();
   }
 });
