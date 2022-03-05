@@ -1,5 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet, Alert, AppState, ImageBackground} from 'react-native';
+import {
+  StyleSheet,
+  Alert,
+  AppState,
+  ImageBackground,
+  StatusBar,
+} from 'react-native';
 import {GameEngine} from 'react-native-game-engine';
 import {Systems} from '../systems/systems';
 import {Entities} from '../entities/entities';
@@ -57,6 +63,7 @@ const GameScreen = ({navigation}) => {
       source={backgroundImage}
       resizeMode="cover"
       style={styles.background}>
+      <StatusBar translucent={true} hidden={true} />
       <GameEngine
         ref={gameEngine}
         style={styles.container}

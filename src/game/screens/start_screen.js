@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Animated,
   ImageBackground,
+  StatusBar,
 } from 'react-native';
 import {getDimensions} from '../utils/Utils';
 import playerImage from '../../assets/player.png';
@@ -69,6 +70,7 @@ const StartScreen = ({navigation}) => {
       source={backgroundImage}
       resizeMode="cover"
       style={styles.background}>
+      <StatusBar translucent={true} hidden={true} />
       <TouchableWithoutFeedback
         onPress={() => navigation.replace('GameScreen')}>
         <View style={styles.container}>
