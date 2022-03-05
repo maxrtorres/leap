@@ -1,7 +1,7 @@
 export const Colors = {
   textColor: 'white',
   backgroundColor: 'black',
-  floorColor: 'transparent',
+  floorColor: 'black',
   obstacleColor: 'transparent',
   ceilingColor: 'transparent',
   playerColor: 'transparent',
