@@ -21,6 +21,7 @@ const {width, height} = getDimensions();
 const StartScreen = ({navigation}) => {
   const appState = useRef(AppState.currentState);
   const bounceAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnim = useRef(new Animated.Value(0.2)).current;
 
   const bounce = Animated.sequence([
     Animated.timing(bounceAnim, {
@@ -30,6 +31,19 @@ const StartScreen = ({navigation}) => {
     }),
     Animated.timing(bounceAnim, {
       toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }),
+  ]);
+
+  const fade = Animated.sequence([
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }),
+    Animated.timing(fadeAnim, {
+      toValue: 0.2,
       duration: 500,
       useNativeDriver: true,
     }),
@@ -60,6 +74,7 @@ const StartScreen = ({navigation}) => {
   useEffect(() => {
     startMusic.play();
     Animated.loop(bounce, {iterations: -1}).start();
+    Animated.loop(fade, {iterations: -1}).start();
     return () => {
       startMusic.stop();
     };
@@ -76,10 +91,13 @@ const StartScreen = ({navigation}) => {
         <View style={styles.container}>
           <Text style={styles.title}>Leap</Text>
           <Text style={styles.highscore}>High Score: </Text>
-          <Animated.View style={{transform: [{translateY: bounceAnim}]}}>
-            <Image source={playerImage} style={styles.image}></Image>
-          </Animated.View>
-          <Text style={styles.tap}>Tap to play!</Text>
+          <Animated.Image
+            source={playerImage}
+            style={[styles.image, {transform: [{translateY: bounceAnim}]}]}
+          />
+          <Animated.Text style={[styles.tap, {opacity: fadeAnim}]}>
+            Tap to play!
+          </Animated.Text>
         </View>
       </TouchableWithoutFeedback>
     </ImageBackground>
