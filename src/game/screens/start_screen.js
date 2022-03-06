@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Image,
   View,
@@ -10,7 +10,7 @@ import {
   ImageBackground,
   StatusBar,
 } from 'react-native';
-import {getDimensions} from '../utils/Utils';
+import {getDimensions, getData} from '../utils/Utils';
 import playerImage from '../../assets/player.png';
 import {Colors} from '../values/colors';
 import {startMusic} from '../values/sounds';
@@ -22,6 +22,7 @@ const StartScreen = ({navigation}) => {
   const appState = useRef(AppState.currentState);
   const bounceAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0.2)).current;
+  const [highScore, setHighScore] = useState('0');
 
   const bounce = Animated.sequence([
     Animated.timing(bounceAnim, {
@@ -72,6 +73,11 @@ const StartScreen = ({navigation}) => {
   });
 
   useEffect(() => {
+    const getHighScore = async () => {
+      const score = await getData('high_score');
+      setHighScore(score);
+    };
+    getHighScore();
     startMusic.play();
     Animated.loop(bounce, {iterations: -1}).start();
     Animated.loop(fade, {iterations: -1}).start();
@@ -91,6 +97,7 @@ const StartScreen = ({navigation}) => {
         <View style={styles.container}>
           <Text style={styles.title}>Leap</Text>
           <Text style={styles.highscore}>High Score: </Text>
+          <Text style={styles.highscore}>{highScore}</Text>
           <Animated.Image
             source={playerImage}
             style={[styles.image, {transform: [{translateY: bounceAnim}]}]}
