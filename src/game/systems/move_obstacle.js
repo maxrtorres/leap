@@ -3,7 +3,7 @@ import {getDimensions, genRandom} from '../utils/Utils';
 
 const {width, height} = getDimensions();
 
-export const MoveObstacle = entities => {
+export const MoveObstacle = (entities, {dispatch}) => {
   let obstacles = [entities.obstacle1.body, entities.obstacle2.body];
   obstacles.forEach(function (obstacle) {
     Matter.Body.setVelocity(obstacle, {
@@ -16,6 +16,7 @@ export const MoveObstacle = entities => {
         x: width * 1.2,
         y: newY,
       });
+      dispatch('add_point');
     }
   });
   return entities;

@@ -5,6 +5,7 @@ import {
   AppState,
   ImageBackground,
   StatusBar,
+  Text,
 } from 'react-native';
 import {GameEngine} from 'react-native-game-engine';
 import {Systems} from '../systems/systems';
@@ -13,11 +14,15 @@ import {Colors} from '../values/colors';
 import {gameMusic} from '../values/sounds';
 import {loseSound} from '../values/sounds';
 import backgroundImage from '../../assets/background.png';
+import {getDimensions, updateHighScore} from '../utils/Utils';
+
+const {width, height} = getDimensions();
 
 const GameScreen = ({navigation}) => {
   const gameEngine = useRef(null);
   const appState = useRef(AppState.currentState);
   const [running, setRunning] = useState(true);
+  const [score, setScore] = useState(0);
 
   _handleAppStateChange = nextAppState => {
     if (
@@ -64,6 +69,7 @@ const GameScreen = ({navigation}) => {
       resizeMode="cover"
       style={styles.background}>
       <StatusBar translucent={true} hidden={true} />
+      <Text style={styles.score}>{score}</Text>
       <GameEngine
         ref={gameEngine}
         style={styles.container}
@@ -71,7 +77,11 @@ const GameScreen = ({navigation}) => {
         entities={Entities()}
         onEvent={e => {
           switch (e) {
+            case 'add_point':
+              setScore(score + 1);
+              break;
             case 'game-over':
+              updateHighScore(score);
               setRunning(false);
               gameEngine.current.stop();
               gameMusic.stop();
@@ -80,6 +90,7 @@ const GameScreen = ({navigation}) => {
                 {
                   text: 'Play',
                   onPress: () => {
+                    setScore(0);
                     setRunning(true);
                     gameEngine.current.swap(Entities());
                     gameEngine.current.start();
@@ -97,8 +108,7 @@ const GameScreen = ({navigation}) => {
                 },
               ]);
           }
-        }}
-      />
+        }}></GameEngine>
     </ImageBackground>
   );
 };
@@ -107,6 +117,15 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: Colors.backgroundColor,
+  },
+  score: {
+    position: 'absolute',
+    width: width,
+    marginTop: height * 0.03,
+    textAlign: 'center',
+    fontSize: height * 0.04,
+    fontFamily: 'Pixel',
+    color: Colors.textColor,
   },
   container: {
     flex: 1,

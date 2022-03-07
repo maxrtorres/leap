@@ -9,6 +9,13 @@ export const genRandom = (low, high) => {
   return Math.random() * (high - low + 1) + low;
 };
 
+export const updateHighScore = async score => {
+  const highScore = await getData('high_score');
+  if (score > Number(highScore)) {
+    await storeData('high_score', score.toString());
+  }
+};
+
 export const storeData = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, value);
