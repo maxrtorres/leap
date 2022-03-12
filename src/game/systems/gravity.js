@@ -5,9 +5,7 @@ const {width, height} = getDimensions();
 
 export const Gravity = entities => {
   let player = entities.player.body;
-  let obstacle1 = entities.obstacle1.body;
-  let obstacle2 = entities.obstacle2.body;
-  let objects = [player, obstacle1, obstacle2];
+  let objects = [player];
   objects.forEach(function (object) {
     Body.applyForce(object, object.position, {
       x: 0,
