@@ -1,22 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {
-  StyleSheet,
-  Alert,
-  AppState,
-  ImageBackground,
-  StatusBar,
-  Text,
-} from 'react-native';
+import {Alert, AppState, ImageBackground, StatusBar, Text} from 'react-native';
 import {GameEngine} from 'react-native-game-engine';
 import {Systems} from '../systems/systems';
 import {Entities} from '../entities/entities';
-import {Colors} from '../values/colors';
 import {gameMusic} from '../values/sounds';
 import {loseSound} from '../values/sounds';
 import backgroundImage from '../../assets/background.png';
-import {getDimensions, updateHighScore} from '../utils/Utils';
-
-const {width, height} = getDimensions();
+import {updateHighScore} from '../utils/Utils';
+import styles from './game_screen_style';
 
 const GameScreen = ({navigation}) => {
   const gameEngine = useRef(null);
@@ -112,24 +103,5 @@ const GameScreen = ({navigation}) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: Colors.backgroundColor,
-  },
-  score: {
-    position: 'absolute',
-    width: width,
-    marginTop: height * 0.03,
-    textAlign: 'center',
-    fontSize: height * 0.04,
-    fontFamily: 'Pixel',
-    color: Colors.textColor,
-  },
-  container: {
-    flex: 1,
-  },
-});
 
 export default GameScreen;

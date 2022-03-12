@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, Image} from 'react-native';
+import styles from './box_style';
 
 export default function Box(props) {
   const width = props.size[0];
@@ -22,12 +23,3 @@ export default function Box(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    width: null,
-    height: null,
-    resizeMode: 'contain',
-  },
-});
