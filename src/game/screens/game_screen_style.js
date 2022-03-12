@@ -7,7 +7,7 @@ const {width, height} = getDimensions();
 export default styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
+    backgroundColor: Colors.defaultBackgroundColor,
   },
   score: {
     position: 'absolute',
@@ -16,7 +16,7 @@ export default styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: height * 0.04,
     fontFamily: 'Pixel',
-    color: Colors.textColor,
+    color: Colors.defaultTextColor,
   },
   container: {
     flex: 1,

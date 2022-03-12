@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Alert, AppState, ImageBackground, StatusBar, Text} from 'react-native';
+import {AppState, ImageBackground, StatusBar, Text} from 'react-native';
 import {GameEngine} from 'react-native-game-engine';
 import {Systems} from '../systems/systems';
 import {Entities} from '../entities/entities';
@@ -8,12 +8,27 @@ import {loseSound} from '../values/sounds';
 import backgroundImage from '../../assets/background.png';
 import {updateHighScore} from '../utils/Utils';
 import styles from './game_screen_style';
+import Dialog from '../components/dialog';
 
 const GameScreen = ({navigation}) => {
   const gameEngine = useRef(null);
   const appState = useRef(AppState.currentState);
   const [running, setRunning] = useState(true);
   const [score, setScore] = useState(0);
+  const [dialogVisible, setDialogVisible] = useState(false);
+
+  const onPlay = () => {
+    setScore(0);
+    setRunning(true);
+    gameEngine.current.swap(Entities());
+    gameEngine.current.start();
+    loseSound.stop();
+    gameMusic.play();
+  };
+
+  const onExit = () => {
+    navigation.replace('StartScreen');
+  };
 
   _handleAppStateChange = nextAppState => {
     if (
@@ -59,6 +74,12 @@ const GameScreen = ({navigation}) => {
       source={backgroundImage}
       resizeMode="cover"
       style={styles.background}>
+      <Dialog
+        dialogVisible={dialogVisible}
+        setDialogVisible={setDialogVisible}
+        onPlay={onPlay}
+        onExit={onExit}
+      />
       <StatusBar translucent={true} hidden={true} />
       <Text style={styles.score}>{score}</Text>
       <GameEngine
@@ -77,27 +98,7 @@ const GameScreen = ({navigation}) => {
               gameEngine.current.stop();
               gameMusic.stop();
               loseSound.play();
-              Alert.alert('Game over!', 'Play again?', [
-                {
-                  text: 'Play',
-                  onPress: () => {
-                    setScore(0);
-                    setRunning(true);
-                    gameEngine.current.swap(Entities());
-                    gameEngine.current.start();
-                    loseSound.stop();
-                    gameMusic.play();
-                  },
-                  style: 'default',
-                },
-                {
-                  text: 'Exit',
-                  onPress: () => {
-                    navigation.replace('StartScreen');
-                  },
-                  style: 'destructive',
-                },
-              ]);
+              setDialogVisible(true);
           }
         }}></GameEngine>
     </ImageBackground>

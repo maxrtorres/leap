@@ -7,7 +7,7 @@ const {width, height} = getDimensions();
 export default styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
+    backgroundColor: Colors.defaultBackgroundColor,
   },
   container: {
     justifyContent: 'center',
@@ -17,14 +17,14 @@ export default styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 0.2 * width,
-    color: Colors.textColor,
+    color: Colors.defaultTextColor,
     fontFamily: 'Pixel',
     marginBottom: 0.05 * height,
   },
   highscore: {
     textAlign: 'center',
     fontSize: 0.05 * width,
-    color: Colors.textColor,
+    color: Colors.defaultTextColor,
     fontFamily: 'Pixel',
     marginBottom: height * 0.05,
   },
@@ -37,7 +37,7 @@ export default styles = StyleSheet.create({
   tap: {
     textAlign: 'center',
     fontSize: 0.05 * width,
-    color: Colors.textColor,
+    color: Colors.defaultTextColor,
     fontFamily: 'Pixel',
   },
 });

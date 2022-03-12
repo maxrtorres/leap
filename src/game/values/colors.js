@@ -1,8 +1,12 @@
 export const Colors = {
-  textColor: 'white',
-  backgroundColor: 'black',
+  defaultTextColor: 'white',
+  defaultBackgroundColor: 'black',
   floorColor: 'black',
   obstacleColor: 'transparent',
   ceilingColor: 'transparent',
   playerColor: 'transparent',
+  dialogBackgroundColor: 'white',
+  dialogTextColor: 'black',
+  buttonPlayColor: 'blue',
+  buttonExitColor: 'red',
 };
