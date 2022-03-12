@@ -1,4 +1,7 @@
 import Matter from 'matter-js';
+import {getDimensions} from '../utils/Utils';
+
+const {width, height} = getDimensions();
 
 export const GameOver = (entities, {dispatch}) => {
   let player = entities.player.body;
@@ -15,6 +18,15 @@ export const GameOver = (entities, {dispatch}) => {
       return entities;
     }
   });
+
+  if (
+    player.position.x < 0 ||
+    player.position.x > width ||
+    player.position.y < 0 ||
+    player.position.y > height
+  ) {
+    dispatch('game-over');
+  }
 
   return entities;
 };
