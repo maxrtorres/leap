@@ -7,6 +7,6 @@ export const Colors = {
   playerColor: 'transparent',
   dialogBackgroundColor: 'white',
   dialogTextColor: 'black',
-  buttonPlayColor: 'blue',
-  buttonExitColor: 'red',
+  buttonPlayColor: '#62B889',
+  buttonExitColor: '#BFCAD0',
 };

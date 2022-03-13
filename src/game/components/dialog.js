@@ -18,15 +18,15 @@ export default function Dialog(props) {
       }}>
       <View style={styles.container}>
         <View style={styles.dialog}>
-          <Text style={styles.headerText}>Game over!</Text>
-          <Text style={styles.bodyText}>Play again?</Text>
+          <Text style={[styles.text, styles.headerText]}>Game over!</Text>
+          <Text style={[styles.text, styles.bodyText]}>Play again?</Text>
           <Pressable
             style={[styles.button, styles.buttonPlay]}
             onPress={() => {
               setDialogVisible(false);
               onPlay();
             }}>
-            <Text style={styles.buttonText}>Play</Text>
+            <Text style={[styles.text, styles.buttonText]}>Play</Text>
           </Pressable>
           <Pressable
             style={[styles.button, styles.buttonExit]}
@@ -34,7 +34,7 @@ export default function Dialog(props) {
               setDialogVisible(false);
               onExit();
             }}>
-            <Text style={styles.buttonText}>Exit</Text>
+            <Text style={[styles.text, styles.buttonText]}>Exit</Text>
           </Pressable>
         </View>
       </View>
