@@ -15,6 +15,7 @@ export default function Dialog(props) {
       visible={dialogVisible}
       onRequestClose={() => {
         setDialogVisible(false);
+        onExit();
       }}>
       <View style={styles.container}>
         <View style={styles.dialog}>
