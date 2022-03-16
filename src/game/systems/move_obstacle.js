@@ -7,7 +7,7 @@ export const MoveObstacle = (entities, {dispatch}) => {
   let obstacles = [entities.obstacle1.body, entities.obstacle2.body];
   obstacles.forEach(function (obstacle) {
     Matter.Body.setVelocity(obstacle, {
-      x: -width * 0.025,
+      x: -width * 0.017,
       y: 0,
     });
     if (obstacle.position.x < -0.2 * width) {
